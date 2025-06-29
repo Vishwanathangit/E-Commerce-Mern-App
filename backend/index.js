@@ -8,6 +8,9 @@ const app = express();
 // Add/Update your frontend URL to avoid CORS error
 var corsOptions = {
   origin: [
+    "http://localhost:5173", 
+    "http://192.168.1.18:5173", 
+    "http://192.168.1.4:5173",
     "https://e-commerce-mern-app-xul5.onrender.com" // Added your deployed frontend URL
   ],
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
@@ -43,8 +46,20 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to EMCKart Application." });
 });
 
-require("./routes/user.routes")(app);
-require("./routes/product.routes")(app);
+// Load routes with error handling
+try {
+  require("./routes/user.routes")(app);
+  console.log("User routes loaded successfully");
+} catch (error) {
+  console.error("Error loading user routes:", error.message);
+}
+
+try {
+  require("./routes/product.routes")(app);
+  console.log("Product routes loaded successfully");
+} catch (error) {
+  console.error("Error loading product routes:", error.message);
+}
 
 // Set port, listen for requests
 const PORT = process.env.PORT || 8080;
