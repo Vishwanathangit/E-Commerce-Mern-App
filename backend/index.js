@@ -8,9 +8,6 @@ const app = express();
 // Add/Update your frontend URL to avoid CORS error
 var corsOptions = {
   origin: [
-    "http://localhost:5173", 
-    "http://192.168.1.18:5173", 
-    "http://192.168.1.4:5173",
     "https://e-commerce-mern-app-xul5.onrender.com" // Added your deployed frontend URL
   ],
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
