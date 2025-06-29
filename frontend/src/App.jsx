@@ -19,32 +19,33 @@ function App() {
   };
 
   return (
-    <>     
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">     
       <BrowserRouter>
         <Navbar />
-        <Routes>
-          <Route
-            path='/'
-            element={authCheck(<Product />)}
-          />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login />} />
-          <Route
-            path='/productUpload'
-            element={authCheck(<ProductUpload />)}
-          />
-          <Route
-            path='/checkout'
-            element={authCheck(<Checkout />)}
-          />
-          <Route
-            path='/finalFun'
-            element={authCheck(<Final />)} />
-          <Route path='*' element={<NotFound />} />
-        </Routes>
+        <main className="container mx-auto px-4 py-8">
+          <Routes>
+            <Route
+              path='/'
+              element={authCheck(<Product />)}
+            />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/login' element={<Login />} />
+            <Route
+              path='/productUpload'
+              element={authCheck(<ProductUpload />)}
+            />
+            <Route
+              path='/checkout'
+              element={authCheck(<Checkout />)}
+            />
+            <Route
+              path='/finalFun'
+              element={authCheck(<Final />)} />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </main>
       </BrowserRouter>
-      
-    </>
+    </div>
   )
 }
 

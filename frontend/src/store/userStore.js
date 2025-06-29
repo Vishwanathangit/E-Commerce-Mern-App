@@ -29,7 +29,7 @@ export const registerUser = createAsyncThunk(('user/register'), async(userData, 
 export const vaildateToken = createAsyncThunk(('user/validateToken'), async(userData, { rejectWithValue }) => {
     try{
         const token = await getUserAuthToken()
-        const userResponse = await axios.post('http://localhost:8080/api/user/validateToken', { authToken: token })
+        const userResponse = await axios.post(`${import.meta.env.VITE_LOCAL_URL}api/user/validateToken`, { authToken: token })
         return userResponse
     } catch (error) {
         if (error.response.status >= 400) {
