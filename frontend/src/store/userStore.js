@@ -8,14 +8,14 @@ import {
 
 export const loginUser = createAsyncThunk(('user/login'), async(userData) => {
     const firebaseResponse = await firebaseLogin(userData)
-    const userResponse = await axios.post(`${import.meta.env.VITE_LOCAL_URL}api/user/login`, firebaseResponse.user)
+    const userResponse = await axios.post(`${import.meta.env.VITE_LOCAL_URL}api/user/login`, firebaseResponse.user,{withCredentials:true})
     const finalRes = await userResponse.data
     return finalRes
 });
 
 export const registerUser = createAsyncThunk(('user/register'), async(userData, { rejectWithValue }) => {
     try{
-        const userResponse = await axios.post(`${import.meta.env.VITE_LOCAL_URL}api/user/register`, userData)
+        const userResponse = await axios.post(`${import.meta.env.VITE_LOCAL_URL}api/user/register`, userData,{withCredentials:true})
         return userResponse
     } catch (error) {
         if (error.response.status >= 400) {
@@ -29,7 +29,7 @@ export const registerUser = createAsyncThunk(('user/register'), async(userData, 
 export const vaildateToken = createAsyncThunk(('user/validateToken'), async(userData, { rejectWithValue }) => {
     try{
         const token = await getUserAuthToken()
-        const userResponse = await axios.post(`${import.meta.env.VITE_LOCAL_URL}api/user/validateToken`, { authToken: token })
+        const userResponse = await axios.post(`${import.meta.env.VITE_LOCAL_URL}api/user/validateToken`, { authToken: token },{withCredentials:true})
         return userResponse
     } catch (error) {
         if (error.response.status >= 400) {
