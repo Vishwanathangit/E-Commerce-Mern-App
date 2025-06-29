@@ -12,8 +12,7 @@ yarn-error.log*
 .env.production.local
 
 # Firebase service account key
-backend/cred/serviceKey.js
-**/serviceKey.js
+
 
 # Build directories
 build/
@@ -51,7 +50,7 @@ jspm_packages/
 .yarn-integrity
 
 # dotenv environment variables file
-cred
+
 .env
 
 # IDE files
