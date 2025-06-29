@@ -8,25 +8,21 @@ const app = express();
 // Add/Update your frontend URL to avoid CORS error
 var corsOptions = {
   origin: [
-    "http://localhost:5173", 
-    "http://192.168.1.18:5173", 
-    "http://192.168.1.4:5173",
-    "https://e-commerce-mern-app-xul5.onrender.com" // Added your deployed frontend URL
+    "https://e-commerce-mern-app-xul5.onrender.com" // Your deployed frontend URL
   ],
-  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Explicitly allow methods
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'] // Allow common headers
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 };
 
 app.use(cors(corsOptions));
-
-// Handle preflight requests explicitly (optional but recommended)
 app.options('*', cors(corsOptions));
 
 // Increase payload size limit for JSON and URL-encoded requests
-app.use(bodyParser.json({ limit: "10mb" })); // Increased to 10MB
-app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" })); // Increased to 10MB
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 
+// Database connection with better error handling
 const db = require("./models");
 db.mongoose
   .connect(db.url, {
@@ -46,23 +42,51 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to EMCKart Application." });
 });
 
-// Load routes with error handling
+// Test route to ensure server is working
+app.get("/test", (req, res) => {
+  res.json({ message: "Server is working correctly!" });
+});
+
+// Load routes with detailed error handling
+console.log("Loading user routes...");
 try {
   require("./routes/user.routes")(app);
-  console.log("User routes loaded successfully");
+  console.log("✅ User routes loaded successfully");
 } catch (error) {
-  console.error("Error loading user routes:", error.message);
+  console.error("❌ Error loading user routes:");
+  console.error("Error message:", error.message);
+  console.error("Stack trace:", error.stack);
+  // Continue without user routes for now
 }
 
+console.log("Loading product routes...");
 try {
   require("./routes/product.routes")(app);
-  console.log("Product routes loaded successfully");
+  console.log("✅ Product routes loaded successfully");
 } catch (error) {
-  console.error("Error loading product routes:", error.message);
+  console.error("❌ Error loading product routes:");
+  console.error("Error message:", error.message);
+  console.error("Stack trace:", error.stack);
+  // Continue without product routes for now
 }
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error("Express error:", err);
+  res.status(500).json({ 
+    message: "Internal server error",
+    error: process.env.NODE_ENV === 'development' ? err.message : {}
+  });
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
 
 // Set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`🚀 Server is running on port ${PORT}`);
+  console.log(`📍 Server URL: https://e-commerce-mern-app-r1oe.onrender.com`);
 });
