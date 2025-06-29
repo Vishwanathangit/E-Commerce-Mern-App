@@ -7,10 +7,21 @@ const app = express();
 
 // Add/Update your frontend URL to avoid CORS error
 var corsOptions = {
-  origin: ["http://localhost:5173", "http://192.168.1.18:5173", "http://192.168.1.4:5173/"],
+  origin: [
+    "http://localhost:5173", 
+    "http://192.168.1.18:5173", 
+    "http://192.168.1.4:5173",
+    "https://e-commerce-mern-app-xul5.onrender.com" // Added your deployed frontend URL
+  ],
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Explicitly allow methods
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'] // Allow common headers
 };
 
 app.use(cors(corsOptions));
+
+// Handle preflight requests explicitly (optional but recommended)
+app.options('*', cors(corsOptions));
 
 // Increase payload size limit for JSON and URL-encoded requests
 app.use(bodyParser.json({ limit: "10mb" })); // Increased to 10MB
