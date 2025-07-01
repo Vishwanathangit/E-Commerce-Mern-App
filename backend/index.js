@@ -9,7 +9,7 @@ const app = express();
 // ✅ CORS setup
 const corsOptions = {
   origin: [
-    "https://e-commerce-mern-app-xul5.onrender.com" // Update this if frontend URL changes
+    "https://e-commerce-mern-app-rp1z.onrender.com" // Update this if frontend URL changes
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
