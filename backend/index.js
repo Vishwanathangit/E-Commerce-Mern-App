@@ -9,11 +9,10 @@ const app = express();
 // ✅ CORS setup
 const corsOptions = {
   origin: [
-    "https://e-commerce-mern-app-rp1z.onrender.com" // Update this if frontend URL changes
+    "http://localhost:5173" // Update this if frontend URL changes
   ],
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 };
 
 app.use(cors(corsOptions));
@@ -88,5 +87,5 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
-  console.log(`📍 Deployed URL (Render): https://e-commerce-mern-app-r1oe.onrender.com`);
+  // console.log(`📍 Deployed URL (Render): https://e-commerce-mern-app-r1oe.onrender.com`);
 });
