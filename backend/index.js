@@ -9,7 +9,7 @@ const app = express();
 // ✅ CORS setup
 const corsOptions = {
   origin: [
-    "http://localhost:5173" // Update this if frontend URL changes
+    "https://e-commerce-mern-app-yb94.onrender.com" // Update this if frontend URL changes
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
